@@ -22,19 +22,34 @@ you'll have to compile a source code on your board.
 
 1. simple ```sudo pip3 install Exode```
 
-<aside class="notice">
-If pip3 is not installed, go here
-</aside>
+
+If pip3 is not installed, go [here](https://pip.pypa.io/en/latest/installing/)
+
+### Found the path to your Arduino
+```bash
+user$ python3
+>> from Exode import *
+>> searchMyBoard()
+>> ['/dev/tty.wchusbserial1420' , '/dev/tty.HC-06-DevB']
+>>
+```
+
+If you use OSx or Linux, you've to know that a device connected to your computer
+is interpreted like a file for your OS. And it's trought this "file" that Exode communicate
+with the Arduino board. You can find this file into this repertory ```\dev```
+
+But you're really lucky today because Exode can find the path of your board it-self like
+a good guy, *notice that you've to install Exode on your board before*.
+**searchMyBoard()** return all board connected with Exode installed on.
 
 ### Your first script
 ```python
 from Exode import *
 
-uno = ArduinoUno('/dev/tty.wchusbserial1420')
+uno = ArduinoUno('/path/to/your/board')
 
 led = Led(13,'OUTPUT')
 uno.add(led)
 
 led.blink(500)
 ```
-1. You can now create a python's script and start to code with Exode.
