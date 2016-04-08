@@ -29,7 +29,7 @@ If pip3 is not installed, go [here](https://pip.pypa.io/en/latest/installing/)
 ```bash
 user$ python3
 >> from Exode import *
->> searchMyBoard()
+>> BOARD.search()
 >> ['/dev/tty.wchusbserial1420' , '/dev/tty.HC-06-DevB']
 >>
 ```
@@ -40,7 +40,7 @@ with the Arduino board. You can find this file into this repertory ```\dev```
 
 But you're really lucky today because Exode can find the path of your board it-self like
 a good guy, *notice that you've to install Exode on your board before*.
-**searchMyBoard()** return all board connected with Exode installed on.
+**BOARD.search()** return all board connected with Exode installed on.
 
 ### Your first script
 ```python
