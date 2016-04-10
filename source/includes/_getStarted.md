@@ -44,12 +44,17 @@ a good guy, *notice that you've to install Exode on your board before*.
 
 ### Your first script
 ```python
+#import
 from Exode import *
-
-uno = ArduinoUno('/path/to/your/board')
-
-led = Led(13,'OUTPUT')
-uno.add(led)
-
+#connect
+uno = Board('/path/to/your/board')
+#setup
+led = Led(13)
+#here we go
 led.blink(500)
 ```
+
+* Firstly you have to **import Exode** ```from Exode import *```
+* Then, **connect** your board giving its absolute path ``uno= Board('/path/to/your/board')```
+* **Setup** your led, shields, servos... plugged on your Board ```led= Led(13)```
+* Now you can **manipulate** them ! ```led.blink(500)```
