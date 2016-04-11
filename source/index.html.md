@@ -12,6 +12,7 @@ toc_footers:
 includes:
   - introduction
   - getStarted
+  - object
   - pin
   - sensor
   - motor
