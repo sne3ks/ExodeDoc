@@ -4,10 +4,8 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>API Reference</title>
+    <title>Exode - Reference</title>
 
-    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
-    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
     <style>
       .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
@@ -88,10 +86,12 @@
   color: #90a959;
 }
     </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;]">
+  <body class="index" data-languages="[&quot;python&quot;,&quot;c++&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -101,9 +101,8 @@
     <div class="tocify-wrapper">
       <img src="images/logo.png" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
+              <a href="#" data-language-name="python">Python</a>
+              <a href="#" data-language-name="c++">Arduino</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -112,235 +111,781 @@
       <div id="toc">
       </div>
         <ul class="toc-footer">
-            <li><a href='#'>Sign Up for a Developer Key</a></li>
             <li><a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a></li>
         </ul>
     </div>
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="introduction">Introduction</h1>
+        
+          <h1 id="introduction">Introduction</h1>
 
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
-
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-
-<p>This example API documentation page was created with <a href="https://github.com/tripit/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&rsquo;s documentation.</p>
-
-<h1 id="authentication">Authentication</h1>
+<h3 id="well-what-is-it">Well, What is it ?</h3>
 
 <blockquote>
-<p>To authorize, use this code:</p>
+<p>Here, a code to blink a led</p>
 </blockquote>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<pre class="highlight python"><code><span class="kn">from</span> <span class="nn">Exode</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
+<span class="n">uno</span> <span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/dev/tty.wchusbserial1420'</span><span class="p">)</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
+<span class="n">led</span> <span class="o">=</span> <span class="n">Led</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">led</span><span class="o">.</span><span class="n">blink</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
 </code></pre>
-<pre class="highlight shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
+
+<p>Exode is a Python&rsquo;s library for communication between
+Arduino microcontroller boards and a connected computer.
+Write Python script and take control on your board using a serial IO.</p>
+
+<h3 id="fast-and-intuitive">Fast and Intuitive</h3>
+
+<p>Exode was designed to simplify the development of Arduino projects. The library
+takes advantages from the clear and light Python&rsquo;s syntax.</p>
+
+<p>Once your Arduino connected to your device (computer, Rasberry Pi, smartphone ..)
+using a serial IO (usb/bluetooth), you&#39;r now allowed to have remote interactions
+with your board.</p>
+
+<p>You microcontroller become a simple slave, let your computer process the more
+complexe tasks. You may add artificial intelligence algorithm in your projects&hellip;</p>
+
+<h3 id="powerfull-tools">Powerfull tools</h3>
 
 <blockquote>
-<p>Make sure to replace <code class="prettyprint">meowmeowmeow</code> with your API key.</p>
+<p>Blink two led asynchronously</p>
 </blockquote>
+<pre class="highlight python"><code>
+<span class="kn">from</span> <span class="nn">Exode</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">uno</span> <span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/dev/tty.HC-06-DevB'</span><span class="p">)</span>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
+<span class="n">led13</span> <span class="o">=</span> <span class="n">Led</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">led14</span> <span class="o">=</span> <span class="n">Led</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<span class="n">uno</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">led13</span><span class="p">)</span>
+<span class="n">uno</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">led14</span><span class="p">)</span>
 
-<p><code class="prettyprint">Authorization: meowmeowmeow</code></p>
+<span class="n">led13</span><span class="o">.</span><span class="n">blink</span><span class="p">(</span><span class="mi">250</span><span class="p">)</span>
+<span class="n">led14</span><span class="o">.</span><span class="n">blink</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-<h1 id="kittens">Kittens</h1>
-
-<h2 id="get-all-kittens">Get All Kittens</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
 </code></pre>
 
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
+<p>Many of Arduino components are implemented in Exode, that&rsquo;s way you can directly
+manipulate them with Python.</p>
 
-<p>This endpoint retrieves all kittens.</p>
+<p>Exode use event-driven programming to manage the interactions between the differents
+components plugged on your board, or your computer it-self.</p>
 
-<h3 id="http-request">HTTP Request</h3>
+<p>Furthermore, the Exode&rsquo;s kernel is based on a asynchronous processes,
+greatly simplifying your project !!</p>
 
-<p><code class="prettyprint">GET http://example.com/api/kittens</code></p>
+          <h1 id="get-started">Get Started</h1>
 
-<h3 id="query-parameters">Query Parameters</h3>
+<p>You&rsquo;re going to need :</p>
+
+<ul>
+<li><strong>An Arduino board</strong></li>
+<li><strong>Linux or OS X</strong> (Window may work)</li>
+<li><strong>Python 3</strong></li>
+<li><strong><a href="https://www.arduino.cc/en/Main/Software">Arduino Software</a></strong> (only to install Exode on your board)</li>
+</ul>
+
+<h3 id="install-exode-on-your-board">Install Exode on your board</h3>
+
+<p>First of all, you&rsquo;ve to load Exode on your device. That&rsquo;ll be the only time that
+you&rsquo;ll have to compile a source code on your board.</p>
+
+<ol>
+<li><p>Download <a href="https://github.com/sne3ks/ExodeArduinoCore">ExodeArduinoCore</a> sources or <code class="prettyprint">git clone https://github.com/sne3ks/ExodeArduinoCore.git</code></p></li>
+<li><p>Open Arduino Software and <a href="https://www.arduino.cc/en/Guide/Libraries">install ArduinoThread library</a>.</p></li>
+<li><p>Open <code class="prettyprint">ExodeArduinoCore\main\main.ino</code> with the Arduino Software, verify and load the code on your board</p></li>
+</ol>
+
+<h3 id="install-exode-on-your-computer">Install Exode on your computer</h3>
+
+<ol>
+<li>simple <code class="prettyprint">sudo pip3 install Exode</code></li>
+</ol>
+
+<p>If pip3 is not installed, go <a href="https://pip.pypa.io/en/latest/installing/">here</a></p>
+
+<h3 id="found-the-path-to-your-arduino">Found the path to your Arduino</h3>
+<pre class="highlight shell"><code><span class="gp">user$ </span>python3
+<span class="gp">&gt;&gt; </span>from Exode import <span class="k">*</span>
+<span class="gp">&gt;&gt; </span>BOARD.search<span class="o">()</span>
+<span class="gp">&gt;&gt; </span><span class="o">[</span><span class="s1">'/dev/tty.wchusbserial1420'</span> , <span class="s1">'/dev/tty.HC-06-DevB'</span><span class="o">]</span>
+&gt;&gt;
+</code></pre>
+
+<p>If you use OSx or Linux, you&rsquo;ve to know that a device connected to your computer
+is interpreted like a file for your OS. And it&rsquo;s trought this &ldquo;file&rdquo; that Exode communicate
+with the Arduino board. You can find this file into this repertory <code class="prettyprint">\dev</code></p>
+
+<p>But you&rsquo;re really lucky today because Exode can find the path of your board it-self like
+a good guy, <em>notice that you&rsquo;ve to install Exode on your board before</em>.
+<strong>BOARD.search()</strong> return all board connected with Exode installed on.</p>
+
+<h3 id="your-first-script">Your first script</h3>
+<pre class="highlight python"><code><span class="c">#import</span>
+<span class="kn">from</span> <span class="nn">Exode</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="c">#connect</span>
+<span class="n">uno</span> <span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/path/to/your/board'</span><span class="p">)</span>
+<span class="c">#setup</span>
+<span class="n">led</span> <span class="o">=</span> <span class="n">Led</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
+<span class="c">#here we go</span>
+<span class="n">led</span><span class="o">.</span><span class="n">blink</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+</code></pre>
+
+<ul>
+<li>Firstly you have to <strong>import Exode</strong> <code class="prettyprint">from Exode import *</code></li>
+<li>Then, <strong>connect</strong> your board giving its absolute path <code class="prettyprint">uno= Board(&#39;/path/to/your/board&#39;)</code>`</li>
+<li><strong>Setup</strong> your led, shields, servos&hellip; plugged on your Board <code class="prettyprint">led= Led(13)</code></li>
+<li>Now you can <strong>manipulate</strong> them ! <code class="prettyprint">led.blink(500)</code></li>
+</ul>
+
+          <h1 id="object">Object</h1>
+
+<p>Each component connected to your board could be viewed as an abstract object.
+Object is inheriting from <strong>obj</strong>. That&rsquo;s why all Exode&rsquo;s objects have theses utilities :</p>
+
+<ul>
+<li>Setup on the board</li>
+<li>Event manager</li>
+<li>Log system</li>
+</ul>
+
+<h2 id="setup-on-the-board">Setup on the board</h2>
+
+<h3 id="obj-on-board">obj.on(board)</h3>
+<pre class="highlight python"><code><span class="n">board</span><span class="o">-</span><span class="mi">0</span><span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/path/to/your/board-0'</span><span class="p">)</span>
+
+<span class="c">#There's only one board connected,</span>
+<span class="c">#obj1'll be setup on board-0</span>
+<span class="n">obj1</span><span class="o">=</span><span class="n">Led</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">obj1</span><span class="o">.</span><span class="n">board</span>
+<span class="o">&gt;&gt;</span> <span class="s">"Board-0"</span>
+
+<span class="n">board</span><span class="o">-</span><span class="mi">1</span><span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/path/to/your/board-1'</span><span class="p">)</span>
+
+<span class="c">#There's two board connected, we've to specified on witch board setup</span>
+<span class="c">#our obj</span>
+<span class="n">obj2</span><span class="o">=</span><span class="n">Led</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="n">board</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+</code></pre>
+
+<p>Setup obj on the board</p>
+
+<ul>
+<li><strong>board</strong> : A board object</li>
+</ul>
+
+<p><em>If there&rsquo;s only one board connected, Exode will automatically call obj.on().
+Else, if there&rsquo;s more than one board you&rsquo;ve to call obj.on()</em></p>
+
+<h2 id="event-manager">Event manager</h2>
+<pre class="highlight python"><code><span class="n">uno</span> <span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/path/to/your/board'</span><span class="p">)</span>
+
+<span class="n">pin</span><span class="o">=</span><span class="n">DigPin</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="s">'OUTPUT'</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">switcheCallback</span><span class="p">():</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">"Hey Hey !"</span><span class="p">)</span>
+
+<span class="n">pin</span><span class="o">.</span><span class="n">attachEvent</span><span class="p">(</span><span class="s">"switch"</span><span class="p">,</span><span class="n">switcheCallback</span><span class="p">)</span>
+<span class="n">pin</span><span class="o">.</span><span class="n">listen</span><span class="p">()</span>
+
+<span class="o">&gt;&gt;</span><span class="mi">0</span>
+<span class="o">&gt;&gt;</span><span class="mi">0</span>
+<span class="o">&gt;&gt;</span><span class="mi">1</span> <span class="c">#lvl switched here</span>
+<span class="o">&gt;&gt;</span><span class="s">"Hey Hey !"</span>
+<span class="o">&gt;&gt;</span><span class="mi">1</span>
+<span class="o">&gt;&gt;</span><span class="mi">0</span>
+<span class="o">&gt;&gt;</span><span class="s">"Hey Hey !"</span>
+<span class="o">...</span>
+
+<span class="n">pin</span><span class="o">.</span><span class="n">detachEvent</span><span class="p">(</span><span class="s">"switch"</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;</span><span class="mi">0</span>
+<span class="o">&gt;&gt;</span><span class="mi">1</span>
+<span class="o">&gt;&gt;</span><span class="mi">0</span>
+
+</code></pre>
+
+<p>Event manager let you add/delete callback functions associate to the object&rsquo;s events.
+Theses functions&rsquo;ll be call when their associated event is dispatched.  </p>
+
+<h3 id="obj-attachevent-event-callback-args">obj.attachEvent(event, callback, *args)</h3>
+
+<p>The callback function with the given args will be executed when the event is dispatched.</p>
+
+<ul>
+<li><strong>event</strong> : the event name</li>
+<li><strong>callback</strong> : a function</li>
+<li><strong>args</strong> : arguments used by the function</li>
+</ul>
+
+<h3 id="obj-detachevent-event">obj.detachEvent(event)</h3>
+
+<p>Delete the callback function associated to the event</p>
+
+<ul>
+<li><strong>event</strong> : the event name</li>
+</ul>
+
+<h2 id="log-system">Log system</h2>
+<pre class="highlight python"><code><span class="n">uno</span> <span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/path/to/your/board'</span><span class="p">)</span>
+
+<span class="n">pin</span><span class="o">=</span><span class="n">DigPin</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="s">'OUTPUT'</span><span class="p">)</span>
+<span class="n">pin</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s">" hello world !"</span><span class="p">)</span>
+
+<span class="c">#in log file</span>
+<span class="o">&gt;&gt;</span> <span class="s">"2016-04-06 19:13:47,408 - Exode.Core - DEBUG -"</span><span class="o">..</span>
+<span class="o">&gt;&gt;</span> <span class="o">..</span> <span class="s">" OBJC - Board-0.digPin(13) hello world !"</span>
+
+</code></pre>
+
+<p>Object can write a message in the log file</p>
+
+<h3 id="obj-log-msg">obj.log(msg)</h3>
+
+<p>Sends a message in the log file</p>
+
+<ul>
+<li><strong>msg</strong> : a string</li>
+</ul>
+
+          <h1 id="pin">Pin</h1>
+
+<p><em><a href="https://www.arduino.cc/en/Tutorial/DigitalPins">Arduino&rsquo;s official tutorial about pins</a></em></p>
+
+<h2 id="digital">Digital</h2>
+<pre class="highlight python"><code>  <span class="n">uno</span> <span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/path/to/your/board'</span><span class="p">)</span>
+
+  <span class="n">pin</span><span class="o">=</span><span class="n">DigPin</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span><span class="s">'OUTPUT'</span><span class="p">)</span>
+  <span class="n">pin</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">'HIGH'</span><span class="p">)</span>
+  <span class="n">pin</span><span class="o">.</span><span class="n">switch</span><span class="p">()</span>
+
+  <span class="n">pin</span><span class="o">.</span><span class="n">periodicSwitch</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+  <span class="n">pin</span><span class="o">.</span><span class="n">stopPeriodicSwitch</span><span class="p">()</span>
+
+  <span class="n">pin</span><span class="o">.</span><span class="n">mode</span><span class="p">(</span><span class="s">'INPUT'</span><span class="p">)</span>
+  <span class="n">pin</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+  <span class="n">pin</span><span class="o">.</span><span class="n">_lvl</span>
+  <span class="o">&gt;&gt;</span> <span class="mi">1</span>
+
+  <span class="n">pin</span><span class="o">.</span><span class="n">listen</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+  <span class="o">&gt;&gt;</span> <span class="mi">1</span>
+  <span class="o">&gt;&gt;</span> <span class="mi">1</span>
+  <span class="o">&gt;&gt;</span> <span class="mi">0</span>
+
+  <span class="n">pin</span><span class="o">.</span><span class="n">stopListen</span><span class="p">()</span>
+
+  <span class="k">def</span> <span class="nf">switchedEvent</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Hey Hey !"</span><span class="p">)</span>
+
+  <span class="n">pin</span><span class="o">.</span><span class="n">attachEvent</span><span class="p">(</span><span class="s">"switch"</span><span class="p">,</span><span class="n">switchedEvent</span><span class="p">)</span>
+  <span class="n">pin</span><span class="o">.</span><span class="n">listen</span><span class="p">()</span>
+
+  <span class="o">&gt;&gt;</span><span class="mi">0</span>
+  <span class="o">&gt;&gt;</span><span class="mi">0</span>
+  <span class="o">&gt;&gt;</span><span class="mi">1</span> <span class="c">#lvl switched here</span>
+  <span class="o">&gt;&gt;</span><span class="s">"Hey Hey !"</span>
+  <span class="o">&gt;&gt;</span><span class="mi">1</span>
+  <span class="o">&gt;&gt;</span><span class="mi">0</span>
+  <span class="o">&gt;&gt;</span><span class="s">"Hey Hey !"</span>
+  <span class="o">...</span>
+
+  <span class="n">pin</span><span class="o">.</span><span class="n">detachEvent</span><span class="p">()</span>
+
+  <span class="o">&gt;&gt;</span><span class="mi">1</span>
+  <span class="o">&gt;&gt;</span><span class="mi">0</span>
+  <span class="o">&gt;&gt;</span><span class="mi">0</span>
+  <span class="o">&gt;&gt;</span><span class="mi">1</span>
+
+  <span class="n">digPinA0</span> <span class="o">=</span> <span class="n">DigPin</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">'OUTPUT'</span><span class="p">,</span> <span class="n">analogic</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+  <span class="n">digPinA0</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">"HIGH"</span><span class="p">)</span>
+
+</code></pre>
+
+<p><em>parent : <a href="#object">Obj</a></em></p>
+
+<p>A digital pin.</p>
+
+<p><strong>digPin&rsquo;s event</strong> :</p>
 
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Default</th>
+<th>Event</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
+<td><strong>switch</strong></td>
+<td>The value from the digPin&rsquo;ve changed</td>
 </tr>
 <tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td><strong>on</strong></td>
+<td>The value from the digPin is 1</td>
+</tr>
+<tr>
+<td><strong>off</strong></td>
+<td>The value from the digPin is 0</td>
 </tr>
 </tbody></table>
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
+<h3 id="digpin-pin-mode-analogic-false">DigPin(pin, Mode, analogic=False)</h3>
 
-<h2 id="get-a-specific-kitten">Get a Specific Kitten</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
+<p>Setups your pin</p>
 
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<ul>
+<li><strong>pinNumber</strong> : the number of the pin whose mode you wish to set</li>
+<li><strong>Mode</strong> : the pin&rsquo;s behaviour &lsquo;OUTPUT&rsquo; or &#39;INPUT&rsquo;</li>
+<li><strong>analogic</strong> : optional parameter, set <em>True</em> if the pin is a physical analog Pin</li>
+</ul>
+
+<h3 id="mode-mode">mode(Mode)</h3>
+
+<p>Changes your pin&rsquo;s behaviour</p>
+
+<ul>
+<li><strong>Mode</strong> : the pin&rsquo;s behaviour &#39;OUTPUT&rsquo; or &#39;INPUT&rsquo;</li>
+</ul>
+
+<h3 id="write-lvl">write(Lvl)</h3>
+
+<p>Writes a HIGH or a LOW value to a digital pin. <a href="https://www.arduino.cc/en/Reference/DigitalWrite">go here</a> for more
+informations.</p>
+
+<ul>
+<li><strong>Lvl</strong> : &#39;HIGH&rsquo;,1 or &#39;LOW&rsquo;,0</li>
+</ul>
+
+<h3 id="analogwrite-value">analogWrite(value)</h3>
+
+<p>Writes an analog value (PWM wave) to the pin. Arduino&rsquo;s documentation
+<a href="https://www.arduino.cc/en/Reference/AnalogWrite">here</a></p>
+
+<ul>
+<li><strong>value</strong> : an integer between 0 and 255</li>
+</ul>
+
+<h3 id="switch">switch()</h3>
+
+<p>Switches the digital pin value &#39;LOW&rsquo; to &#39;HIGH&rsquo; or &#39;HIGH&rsquo; to &#39;LOW&rsquo;</p>
+
+<h3 id="periodicswitch-period">periodicSwitch(period)</h3>
+
+<p>Switches the pin value periodically</p>
+
+<ul>
+<li><strong>period</strong> : in ms the interval between each switching, if is not set it&rsquo;ll be 100ms</li>
+</ul>
+
+<h3 id="stopperiodicswitch">stopPeriodicSwitch()</h3>
+
+<p>Stop the pin&rsquo;s periodic switch</p>
+
+<h3 id="read">read()</h3>
+
+<p>Reads the value from your pin, then saves the value into <strong>digPin._lvl</strong></p>
+
+<h3 id="listen-period">listen(period)</h3>
+
+<p>Reads the value from your pin periodically</p>
+
+<ul>
+<li><strong>period</strong> : in ms the interval between each reading, if is not set it&rsquo;ll be 100ms</li>
+</ul>
+
+<h3 id="stoplisten">stopListen()</h3>
+
+<p>Stops the pin&rsquo;s listening</p>
+
+<h2 id="led">Led</h2>
+<pre class="highlight python"><code><span class="n">uno</span> <span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/dev/tty.HC-06-DevB'</span><span class="p">)</span>
+
+<span class="n">led13</span> <span class="o">=</span> <span class="n">Led</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">led14</span> <span class="o">=</span> <span class="n">Led</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span>
+
+<span class="n">uno</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">led13</span><span class="p">)</span>
+<span class="n">uno</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">led14</span><span class="p">)</span>
+
+<span class="n">led13</span><span class="o">.</span><span class="n">blink</span><span class="p">(</span><span class="mi">250</span><span class="p">)</span>
+<span class="n">led14</span><span class="o">.</span><span class="n">blink</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
 </code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">kittn</span>
 
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<p><em>parent : <a href="#digital">DigPin</a></em></p>
+
+<p>inherit all methods from digPin</p>
+
+<h3 id="led-pin">Led(pin)</h3>
+
+<p>Setup a Led</p>
+
+<ul>
+<li><strong>pin</strong> : the pin number</li>
+</ul>
+
+<h3 id="blink-period">blink(period)</h3>
+
+<p>Init a blink on the led</p>
+
+<ul>
+<li><strong>period</strong> : the blink period</li>
+</ul>
+
+<h3 id="stopblink">stopBlink()</h3>
+
+<p>Stop blink</p>
+
+<h2 id="anapin">AnaPin</h2>
+<pre class="highlight python"><code><span class="n">board</span><span class="o">=</span><span class="n">Board</span><span class="p">(</span><span class="s">'/path/to/your/board'</span><span class="p">)</span>
+
+<span class="n">analog</span><span class="o">=</span> <span class="n">AnaPin</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="s">'INPUT'</span><span class="p">)</span>
+
+<span class="n">analog</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="n">analog</span><span class="o">.</span><span class="n">value</span>
+<span class="o">&gt;&gt;</span> <span class="mi">455</span>
+
+<span class="k">def</span> <span class="nf">printValue</span><span class="p">(</span><span class="n">pin</span><span class="p">):</span>
+  <span class="k">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">_pin</span><span class="p">)</span><span class="o">+</span><span class="s">": "</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">pin</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+
+<span class="n">analog</span><span class="o">.</span><span class="n">attachEvent</span><span class="p">(</span><span class="s">"update"</span><span class="p">,</span><span class="n">printValue</span><span class="p">,</span><span class="n">analog</span><span class="p">)</span>
+<span class="n">analog</span><span class="o">.</span><span class="n">listen</span><span class="p">()</span>
+
+<span class="o">&gt;&gt;</span> <span class="s">"5: 455"</span>
+<span class="o">&gt;&gt;</span> <span class="s">"5: 430"</span>
+<span class="o">&gt;&gt;</span> <span class="s">"5: 432"</span>
+<span class="o">&gt;&gt;</span> <span class="s">"5: 100"</span>
+<span class="o">...</span>
+
 </code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre>
 
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
+<p><em>parent : <a href="#object">Obj</a></em></p>
 
-<p>This endpoint retrieves a specific kitten.</p>
+<p><a href="https://www.arduino.cc/en/Tutorial/AnalogInputPins">An analog pin</a>.</p>
 
-<aside class="warning">Inside HTML code blocks like this one, you can&rsquo;t use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code class="prettyprint">GET http://example.com/kittens/&lt;ID&gt;</code></p>
-
-<h3 id="url-parameters">URL Parameters</h3>
+<p><strong>AnaPin&rsquo;s event</strong> :</p>
 
 <table><thead>
 <tr>
-<th>Parameter</th>
+<th>Event</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
+<td><strong>update</strong></td>
+<td>anaPin have read a new value</td>
 </tr>
 </tbody></table>
 
-          <h1 id="errors">Errors</h1>
+<h3 id="anapin-pin-mode">anaPin(pin, mode)</h3>
 
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files&hellip;just save them to the `includes` folder and add them to the top of your `index.md`&rsquo;s frontmatter. Files are included in the order listed.</aside>
+<p>Setup the analog pin.</p>
 
-<p>The Kittn API uses the following error codes:</p>
+<ul>
+<li><strong>pin</strong> : the analog pin number</li>
+<li><strong>mode</strong> : the pin&rsquo;s behaviour &#39;OUTPUT&rsquo; or &#39;INPUT&rsquo;</li>
+</ul>
+
+<h3 id="mode-mode">mode(mode)</h3>
+
+<p>Changes your pin&rsquo;s behaviour</p>
+
+<ul>
+<li><strong>mode</strong> : the pin&rsquo;s behaviour &#39;OUTPUT&rsquo; or &#39;INPUT&rsquo;</li>
+</ul>
+
+<h3 id="read">read()</h3>
+
+<p>Reads the value from the pin, then saves the value into <strong>anaPin.value</strong>.
+more informations <a href="https://www.arduino.cc/en/Reference/RobotAnalogRead">here</a></p>
+
+<h3 id="listen-period">listen(period)</h3>
+
+<p>Reads the value from your pin periodically</p>
+
+<ul>
+<li><strong>period</strong> : in ms the interval between each reading, if is not set it&rsquo;ll be 100ms</li>
+</ul>
+
+<h3 id="stoplisten">stopListen()</h3>
+
+<p>Stops the pin&rsquo;s listening</p>
+
+<h2 id="ppmpin">ppmPin</h2>
+<pre class="highlight python"><code><span class="n">board</span><span class="o">=</span><span class="n">Board</span><span class="p">(</span><span class="s">'/path/to/your/board'</span><span class="p">)</span>
+
+<span class="n">ppm</span><span class="o">=</span> <span class="n">ppmPin</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">ppm</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">1500</span><span class="p">)</span>
+
+<span class="n">delay</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">ppm</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</code></pre>
+
+<p><em>parent : <a href="#object">Obj</a></em></p>
+
+<p>more informations about <strong>ppm signal</strong> <a href="http://skymixer.net/electronics/84-rc-receivers/78-rc-ppm-signal">here</a></p>
+
+<h3 id="ppmpin-pin-us-1500">ppmPin(pin, us=1500)</h3>
+
+<p>Setup a ppm signal on the Pin</p>
+
+<ul>
+<li><strong>pin</strong> : the pin number</li>
+<li><strong>us</strong> : the value (us), if not set the default value&rsquo;ll be 1500</li>
+</ul>
+
+<h3 id="write-us">write(us)</h3>
+
+<p>Change the ppm value</p>
+
+<ul>
+<li><strong>us</strong> : the value (us)</li>
+</ul>
+
+<h3 id="stop">stop()</h3>
+
+<p>Stop the ppm signal on the pin</p>
+
+          <h1 id="sensor">Sensor</h1>
+
+<h2 id="ultrasonic-sensor-hcsr04">Ultrasonic sensor HCSR04</h2>
+<pre class="highlight python"><code><span class="n">board</span><span class="o">=</span><span class="n">Board</span><span class="p">(</span><span class="s">'/path/to/your/board'</span><span class="p">)</span>
+
+<span class="n">sensor</span><span class="o">=</span> <span class="n">HCSR04</span><span class="p">(</span><span class="n">echo</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">trig</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">printValue</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">cm</span><span class="o">+</span><span class="s">" cm"</span><span class="p">)</span>
+
+<span class="n">sensor</span><span class="o">.</span><span class="n">attachEvent</span><span class="p">(</span><span class="s">'update'</span><span class="p">,</span> <span class="n">printValue</span><span class="p">,</span> <span class="n">sensor</span><span class="p">)</span>
+<span class="n">sensor</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="o">&gt;&gt;</span> <span class="mf">23.0</span> <span class="n">cm</span>
+
+<span class="n">sensor</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="o">&gt;&gt;</span> <span class="mf">20.5</span> <span class="n">cm</span>
+<span class="o">&gt;&gt;</span> <span class="mf">20.9</span> <span class="n">cm</span>
+<span class="o">&gt;&gt;</span> <span class="mf">34.5</span> <span class="n">cm</span>
+<span class="o">...</span>
+<span class="n">sensor</span><span class="o">.</span><span class="n">stopRead</span><span class="p">()</span>
+
+</code></pre>
+
+<p align="center"><img src="https://brainy-bits.com/wp-content/uploads/2014/12/schematic-HCSR04.png" ></p>
+
+<p><a href="https://docs.google.com/document/d/1Y-yZnNhMYy7rwhAgyL_pfa39RsB-x2qR4vP8saG73rE/edit">HCSR04 datasheet</a></p>
+
+<p><strong>HCSR04&rsquo;s event</strong> :</p>
 
 <table><thead>
 <tr>
-<th>Error Code</th>
-<th>Meaning</th>
+<th>Event</th>
+<th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>400</td>
-<td>Bad Request &ndash; Your request sucks</td>
-</tr>
-<tr>
-<td>401</td>
-<td>Unauthorized &ndash; Your API key is wrong</td>
-</tr>
-<tr>
-<td>403</td>
-<td>Forbidden &ndash; The kitten requested is hidden for administrators only</td>
-</tr>
-<tr>
-<td>404</td>
-<td>Not Found &ndash; The specified kitten could not be found</td>
-</tr>
-<tr>
-<td>405</td>
-<td>Method Not Allowed &ndash; You tried to access a kitten with an invalid method</td>
-</tr>
-<tr>
-<td>406</td>
-<td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone &ndash; The kitten requested has been removed from our servers</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&rsquo;m a teapot</td>
-</tr>
-<tr>
-<td>429</td>
-<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slow down!</td>
-</tr>
-<tr>
-<td>500</td>
-<td>Internal Server Error &ndash; We had a problem with our server. Try again later.</td>
-</tr>
-<tr>
-<td>503</td>
-<td>Service Unavailable &ndash; We&rsquo;re temporarially offline for maintanance. Please try again later.</td>
+<td><strong>update</strong></td>
+<td>the sensor&rsquo;ve read a new value</td>
 </tr>
 </tbody></table>
+
+<h3 id="hcsr04-echo-trig">HCSR04(echo, trig)</h3>
+
+<p>Init a HCR04 sensor.</p>
+
+<ul>
+<li><strong>echo</strong> : the Echo&rsquo;s pin number</li>
+<li><strong>trig</strong> : the Trig&rsquo;s pin number</li>
+</ul>
+
+<h3 id="read-period">read(period)</h3>
+
+<p>Read the distance of the nearest object by bouncing soundwaves off of it</p>
+
+<ul>
+<li><strong>period</strong> : the period between each readings, if is not set (or equal to 0), the HCSR04&rsquo;ll read only one time.</li>
+</ul>
+
+<h3 id="stopread">stopRead()</h3>
+
+<p>Stop the reading from the HCSR04</p>
+
+<h3 id="hcr04-cm">HCR04.cm</h3>
+
+<p>The distance of the nearest object (cm) (updated during the last reading)</p>
+
+<p><em>cm= round(duration/58.2, 2) calculate with the speed of sound</em></p>
+
+<h3 id="hcr04-duration">HCR04.duration</h3>
+
+<p>Width (ms) of the last Echo pulse</p>
+
+<p><em>read the datasheet for more informations</em>*</p>
+
+          <h1 id="motor">Motor</h1>
+
+<h2 id="servo-motor">Servo motor</h2>
+<pre class="highlight python"><code><span class="n">board</span><span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/path/to/your/board-0'</span><span class="p">)</span>
+
+<span class="n">servo</span><span class="o">=</span> <span class="n">Servo</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">servo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">servo</span><span class="o">.</span><span class="n">writeUs</span><span class="p">(</span><span class="mi">1900</span><span class="p">)</span>
+<span class="n">servo</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+
+<span class="n">dangerousServo</span><span class="o">=</span> <span class="n">Servo</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">dangerousServo</span><span class="o">.</span><span class="n">secure</span><span class="p">(</span><span class="n">minAngle</span><span class="o">=</span><span class="mi">75</span><span class="p">,</span> <span class="n">maxAngle</span><span class="o">=</span><span class="mi">105</span><span class="p">)</span>
+<span class="n">dangerousServo</span><span class="o">.</span><span class="n">calibrate</span><span class="p">(</span><span class="n">zeroUs</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span> <span class="n">angleToUs</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">dangerousServo</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+
+</code></pre>
+
+<p><p align="center"><img src="images/servo.png"><p></p>
+
+<p><em>parent : <a href="#ppmpin">ppmPin</a></em></p>
+
+<h3 id="servo-pin-angle-90-minangle-0-maxangle-180-zerous-1000-angletous-5-5555">Servo(pin, angle=90, minAngle=0, maxAngle=180, zeroUs=1000, angleToUs=5.5555)</h3>
+
+<p>Setup a servo</p>
+
+<ul>
+<li><strong>pin</strong> : the Servo&rsquo;s pin</li>
+<li><strong>angle</strong> : servo&rsquo;s angle, default is 90</li>
+<li><strong>min/max Angle</strong> : min/max Angle for your servo, defaults are 0 and 180</li>
+<li><strong>zeroUs</strong> : the value in us of the angle 0° of your servo , default is 1000</li>
+<li><strong>angleToUs</strong> : the value in us of 1° angle</li>
+</ul>
+
+<h3 id="secure-minangle-0-maxangle-90">secure(minAngle=0, maxAngle=90)</h3>
+
+<p>Secure your servo setting the min/max value</p>
+
+<ul>
+<li><strong>min/max Angle</strong> : min/max Angle for your servo, defaults are 0 and 180</li>
+</ul>
+
+<h3 id="calibrate-zerous-1000-angletous-5-555">calibrate(zeroUs=1000, angleToUs=5.555)</h3>
+
+<p>Calibrate your servo</p>
+
+<ul>
+<li><strong>zeroUs</strong> : the value in us of the angle 0° of your servo , default is 1000</li>
+<li><strong>angleToUs</strong> : the value in us of 1° angle</li>
+</ul>
+
+<h3 id="detach">detach()</h3>
+
+<p>Detach your servo from its pin (stop the ppm)</p>
+
+<h3 id="write-angle">write(angle)</h3>
+
+<p>Write an angle on your servo</p>
+
+<ul>
+<li><strong>angle</strong> : servo&rsquo;s angle</li>
+</ul>
+
+<h3 id="writeus-us">writeUs(us)</h3>
+
+<p>Change the ppm signal value on the pin</p>
+
+<ul>
+<li><strong>us</strong> : the value (us) of the ppm signal</li>
+</ul>
+
+<h2 id="l298n-motor">L298N Motor</h2>
+<pre class="highlight python"><code><span class="n">board</span><span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/path/to/your/board-0'</span><span class="p">)</span>
+
+<span class="n">motor</span><span class="o">=</span><span class="n">L298N_MOTOR</span><span class="p">(</span><span class="n">DC</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">IN1</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">IN2</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">motor</span><span class="o">.</span><span class="n">runForward</span><span class="p">()</span> <span class="c"># Motor run forward power 50%</span>
+
+<span class="n">motor</span><span class="o">.</span><span class="n">setSpeed</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span> <span class="c"># Motor run forward power 100%</span>
+<span class="n">motor</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span> <span class="c"># Motor stop</span>
+
+<span class="n">motor</span><span class="o">.</span><span class="n">setSpeed</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="c"># Set the power to 10%</span>
+<span class="n">motor</span><span class="o">.</span><span class="n">setDirection</span><span class="p">(</span><span class="s">'backward'</span><span class="p">)</span> <span class="c"># Set the direction on backward</span>
+<span class="n">motor</span><span class="o">.</span><span class="n">run</span><span class="p">()</span> <span class="c"># Motor run backward power 10%</span>
+
+
+</code></pre>
+
+<p><p align="center"><img src="http://www.electromonde.com/image/data/composants2/schema%20ciruit%20lm298.png" ><p></p>
+
+<h3 id="l298n_motor-dc-in1-in2-speed-50">L298N_MOTOR(DC, IN1, IN2, speed=50)</h3>
+
+<p>Setup a motor on the L298N</p>
+
+<ul>
+<li><strong>DC</strong> : DC pin number</li>
+<li><strong>IN1</strong> : IN1 pin number</li>
+<li><strong>IN2</strong> : IN2 pin number</li>
+<li><strong>speed</strong> : the motor&rsquo;s percentage of power (by default it&rsquo;s 50%)</li>
+</ul>
+
+<h3 id="setspeed-value">setSpeed(value)</h3>
+
+<p>Change the motor&rsquo;s speed</p>
+
+<ul>
+<li><strong>speed</strong> : the motor&rsquo;s percentage of power (by default it&rsquo;s 50%)</li>
+</ul>
+
+<h3 id="setdirection-value">setDirection(value)</h3>
+
+<p>Change the motor direction</p>
+
+<ul>
+<li><strong>value</strong> : &lsquo;forward&rsquo;/1 or &#39;backward&rsquo;/-1</li>
+</ul>
+
+<h3 id="switch">switch()</h3>
+
+<p>Switch the motor direction</p>
+
+<h3 id="runforward">runForward()</h3>
+
+<p>Run forward the motor</p>
+
+<h3 id="runbackward">runBackward()</h3>
+
+<p>Run backward the motor</p>
+
+<h3 id="run">run()</h3>
+
+<p>Run the motor with the last direction given</p>
+
+<h3 id="stop">stop()</h3>
+
+<p>Stop the motor</p>
+
+          
+          <h1 id="advanced-usage">Advanced usage</h1>
+
+<h2 id="exodespeaker">ExodeSpeaker</h2>
+
+<h2 id="exodelistener">ExodeListener</h2>
+
+<h2 id="boardthread">BoardThread</h2>
+
+          <h1 id="how-to-contribute">How to contribute ?</h1>
+
+<h2 id="report-a-bug-or-request-a-feature">Report a Bug or Request a Feature</h2>
+
+<h2 id="implement-new-components">Implement new components</h2>
+
+<h2 id="improve-the-code">Improve the code</h2>
+
+          <h1 id="changelog">Changelog</h1>
+
+<h2 id="beta-0-5">Beta 0.5</h2>
+
+<h3 id="features">Features</h3>
+
+<h3 id="todo-list">Todo List</h3>
 
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
+                <a href="#" data-language-name="python">Python</a>
+                <a href="#" data-language-name="c++">Arduino</a>
           </div>
       </div>
     </div>
