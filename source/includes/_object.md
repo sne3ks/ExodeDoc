@@ -13,8 +13,8 @@ Object is inheriting from **obj**. That's why all Exode's objects have theses ut
 ```python
 board-0= Board('/path/to/your/board-0')
 
-#There's only one board-1 connected,
-#obj1'll be setup on board-1
+#There's only one board connected,
+#obj1'll be setup on board-0
 obj1=Led(13)
 obj1.board
 >> "Board-0"
@@ -39,10 +39,10 @@ uno = Board('/path/to/your/board')
 
 pin=DigPin(13,'OUTPUT')
 
-def switchedEvent():
+def switcheCallback():
   print("Hey Hey !")
 
-pin.attachEvent("switch",switchedEvent)
+pin.attachEvent("switch",switcheCallback)
 pin.listen()
 
 >>0

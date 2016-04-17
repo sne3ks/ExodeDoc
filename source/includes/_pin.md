@@ -107,6 +107,36 @@ Reads the value from your pin periodically
 ### stopListen()
 Stops the pin's listening
 
+## Led
+```python
+uno = Board('/dev/tty.HC-06-DevB')
+
+led13 = Led(13)
+led14 = Led(14)
+
+uno.add(led13)
+uno.add(led14)
+
+led13.blink(250)
+led14.blink(500)
+```
+*parent : [DigPin](#digital)*
+
+inherit all methods from digPin
+
+### Led(pin)
+Setup a Led
+
+* **pin** : the pin number
+
+### blink(period)
+Init a blink on the led
+
+* **period** : the blink period
+
+### stopBlink()
+Stop blink
+
 ## AnaPin
 ```python
 board=Board('/path/to/your/board')
@@ -164,4 +194,30 @@ Reads the value from your pin periodically
 Stops the pin's listening
 
 
-## PPM
+## ppmPin
+```python
+board=Board('/path/to/your/board')
+
+ppm= ppmPin(15)
+ppm.write(1500)
+
+delay(1000)
+ppm.stop()
+```
+*parent : [Obj](#object)*
+
+more informations about **ppm signal** [here](http://skymixer.net/electronics/84-rc-receivers/78-rc-ppm-signal)
+
+### ppmPin(pin, us=1500)
+Setup a ppm signal on the Pin
+
+* **pin** : the pin number
+* **us** : the value (us), if not set the default value'll be 1500
+
+### write(us)
+Change the ppm value
+
+* **us** : the value (us)
+
+### stop()
+Stop the ppm signal on the pin
