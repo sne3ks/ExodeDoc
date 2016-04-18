@@ -859,11 +859,370 @@ more informations <a href="https://www.arduino.cc/en/Reference/RobotAnalogRead">
           
           <h1 id="advanced-usage">Advanced usage</h1>
 
-<h2 id="exodespeaker">ExodeSpeaker</h2>
+<h2 id="how-it-works">How it works ?</h2>
 
-<h2 id="exodelistener">ExodeListener</h2>
+<h3 id="how-exode-send-instructions">How Exode send instructions ?</h3>
 
-<h2 id="boardthread">BoardThread</h2>
+<p>Exode send byte arrays to the Arduino Board. Each array represent <strong>an instruction</strong>.
+Byte arrays are constructed on this pattern</p>
+
+<table><thead>
+<tr>
+<th>Byte position</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><strong>0</strong></td>
+<td>The instruction&rsquo;s length</td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td>The instruction&rsquo;s id</td>
+</tr>
+<tr>
+<td><strong>2 .. n</strong></td>
+<td>The instruction&rsquo;s operands</td>
+</tr>
+</tbody></table>
+
+<p>When the board receive a byte array, the board will decode and execute it.</p>
+
+<p>For example, here the byte array to write a &lsquo;HIGH&rsquo; level on the pin 13</p>
+
+<table><thead>
+<tr>
+<th>Byte position</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>0</td>
+<td><strong>\x03</strong></td>
+<td>The instruction&rsquo;s length</td>
+</tr>
+<tr>
+<td>1</td>
+<td><strong>\x01</strong></td>
+<td>The instruction&rsquo;s id</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>&rsquo;\r&rsquo;</strong></td>
+<td>pin 13</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>&rsquo;\x01&rsquo;</strong></td>
+<td>&#39;HIGH&rsquo; <em>(or 1)</em></td>
+</tr>
+</tbody></table>
+
+<h3 id="how-exode-receive-values">How Exode receive values ?</h3>
+
+<aside class="warning">
+  For the moment, exodeArduinoCore can only send unsigned int coded on 4 bytes with a little endian
+</aside>
+
+<p>Some instructions wait from the board an answer, for example digPin.read().
+Exode works on asynchronous process, that&rsquo;s why the answers don&rsquo;t come in the same
+order than their request. To identify the request who is associated the incoming
+answer, Exode use a <strong>key system</strong>.</p>
+
+<p>For example, here the byte array to read the pin 13 level</p>
+
+<table><thead>
+<tr>
+<th>Byte position</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>0</td>
+<td><strong>\x03</strong></td>
+<td>The instruction&rsquo;s length</td>
+</tr>
+<tr>
+<td>1</td>
+<td><strong>\x02</strong></td>
+<td>The instruction&rsquo;s id</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>&rsquo;\r&rsquo;</strong></td>
+<td>pin 13</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>&rsquo;\x07&rsquo;</strong></td>
+<td>the key (here 7)</td>
+</tr>
+</tbody></table>
+
+<p>Board will answer</p>
+
+<table><thead>
+<tr>
+<th>Byte position</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>0</td>
+<td><strong>\x07</strong></td>
+<td>The instruction&rsquo;s key</td>
+</tr>
+<tr>
+<td>1</td>
+<td><strong>\x01</strong></td>
+<td>the answer</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>\x00</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>\x00</strong></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>\x00</strong></td>
+<td></td>
+</tr>
+</tbody></table>
+
+<h2 id="board-39-s-instructions">Board&rsquo;s instructions</h2>
+<pre class="highlight python"><code>  <span class="n">uno</span> <span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/path/to/your/board'</span><span class="p">)</span>
+
+  <span class="c">#Example to turn-on a led using instructions</span>
+  <span class="n">uno</span><span class="o">.</span><span class="n">pinMode</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="s">"OUTPUT"</span><span class="p">)</span>
+  <span class="n">uno</span><span class="o">.</span><span class="n">digitalWrite</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="s">"HIGH"</span><span class="p">)</span>
+
+</code></pre>
+
+<p>Here the full list of board&rsquo;s instructions</p>
+
+<table><thead>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Description</th>
+<th>Operands</th>
+<th>Answer</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>0</td>
+<td><strong>pinMode(pin, mode, analogic=False)</strong></td>
+<td>setup a pin</td>
+<td><strong>pin</strong>: pinNumber <br> <strong>mode</strong>: 1 or 0 (OUTPUT or INPUT) <br> <strong>analogic</strong>: if it&rsquo;s an analogic pin</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td><strong>digitalWrite(pin, lvl)</strong></td>
+<td>write a digital Value on a pin</td>
+<td><strong>pin</strong>: pinNumber <br> <strong>lvl</strong>: 1 or 0 (HIGH or LOW)</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>digitalRead(pin, key)</strong></td>
+<td>read a pin lvl</td>
+<td><strong>pin</strong>: pinNumber <br> <strong>key</strong>: request&rsquo;s key</td>
+<td><em>the pin lvl</em></td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>digitalSwitch(pin)</strong></td>
+<td>switch a pin lvl</td>
+<td><strong>pin</strong>: pinNumber</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>analogWrite(pin, value)</strong></td>
+<td>write an analog value</td>
+<td><strong>pin</strong>: pinNumber <br> <strong>value</strong> : [0, 255]</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>analogRead(pin, key)</strong></td>
+<td>read the value on an analog pin</td>
+<td><strong>pin</strong>: Analogic pin number <br> <strong>key</strong>:  request&rsquo;s key</td>
+<td><em>the pin value</em></td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>addPPM(pin, us, key)</strong></td>
+<td>init a PPM signal</td>
+<td><strong>pin</strong>: pin Number <br> <strong>us</strong> : signal value (us) <br> <strong>key</strong> : request&rsquo;s key</td>
+<td><em>the signal id</em></td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>removePPM(id)</strong></td>
+<td>stop a PPM signal</td>
+<td><strong>id</strong>: the signal id</td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>writePPM(id, us)</strong></td>
+<td>new PPM value</td>
+<td><strong>id</strong> : the signal id <br> <strong>us</strong> : signal value (us)</td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>pulse(pin ,us)</strong></td>
+<td>send a pulse on a pin</td>
+<td><strong>pin</strong> : pin Number <br> <strong>us</strong> : pulse length (us)</td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>pulseIn</strong></td>
+<td>read a pulseIn on a pin</td>
+<td><strong>pin</strong> : pin Number <br> <strong>key</strong> : request&rsquo;s key</td>
+<td><em>the pulse length</em></td>
+</tr>
+<tr>
+<td>14</td>
+<td><strong>reset</strong></td>
+<td>reset the board</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>15</td>
+<td><strong>checkExode</strong></td>
+<td>check if exode is installed on the board</td>
+<td></td>
+<td><em>404 with the request&rsquo;s key 202</em></td>
+</tr>
+</tbody></table>
+
+<h2 id="listener">Listener</h2>
+
+<blockquote>
+<p>Here a code to read a digital input</p>
+</blockquote>
+<pre class="highlight python"><code><span class="n">uno</span> <span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/path/to/your/board'</span><span class="p">)</span>
+
+<span class="c"># We setup the pin13</span>
+<span class="n">uno</span><span class="o">.</span><span class="n">pinMode</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="s">"INPUT"</span><span class="p">)</span>
+
+<span class="c"># Define a callback function</span>
+<span class="k">def</span> <span class="nf">printLvl</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">"the value on the pin is : "</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+
+<span class="c"># Get a key</span>
+<span class="n">requestKey</span><span class="o">=</span> <span class="n">uno</span><span class="o">.</span><span class="n">getKey</span><span class="p">()</span>
+
+<span class="c"># Init the listener and read the pin</span>
+<span class="n">uno</span><span class="o">.</span><span class="n">addListener</span><span class="p">(</span><span class="n">updateFunction</span><span class="o">=</span><span class="n">printLvl</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">requestKey</span><span class="p">)</span>
+<span class="n">uno</span><span class="o">.</span><span class="n">digitalRead</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">requestKey</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;</span> <span class="s">"the value on the pin is : 0"</span>
+
+</code></pre>
+
+<p>To receive date from the board, Exode use Listener. A Listener listen the incoming data, when a value comes
+with the excepted key, the listener will call a callback function with the incoming value as argument.</p>
+
+<h3 id="board-addlistener-updatefunction-key-isinfinite-false">Board.addListener(updateFunction, key, isInfinite=False)</h3>
+
+<p>To init a Listener on the board</p>
+
+<ul>
+<li><strong>updateFunction</strong> : the callback function, call when board receive the excepted value</li>
+<li><strong>key</strong> : the request&rsquo;s key</li>
+<li><strong>isInfinite</strong> : indicate if we listen the board indefinitely or only once</li>
+</ul>
+
+<h3 id="board-getkey-self-excpt">Board.getKey(self, excpt=[])</h3>
+
+<p>Return a available key</p>
+
+<ul>
+<li><strong>excpt</strong> : optional, a list of value to be excluded</li>
+</ul>
+
+<h2 id="boardthread">boardThread</h2>
+
+<blockquote>
+<p>Example of boardThread to read a value with the HCSR04 sensor</p>
+</blockquote>
+<pre class="highlight python"><code>
+<span class="n">uno</span> <span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/path/to/your/board'</span><span class="p">)</span>
+
+<span class="c"># Setup trig(2) and echo(3) pin</span>
+<span class="n">uno</span><span class="o">.</span><span class="n">pinMode</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s">'OUTPUT'</span><span class="p">)</span>
+<span class="n">uno</span><span class="o">.</span><span class="n">pinMode</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s">'INPUT'</span><span class="p">)</span>
+
+<span class="c"># requestKey</span>
+<span class="n">readKey</span><span class="o">=</span> <span class="n">uno</span><span class="o">.</span><span class="n">getKey</span><span class="p">()</span>
+
+<span class="c"># Init a thread</span>
+<span class="n">readThread</span><span class="o">=</span> <span class="n">uno</span><span class="o">.</span><span class="n">newThread</span><span class="p">()</span>
+<span class="n">readThread</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">"pulse"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">readThread</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">"pulseIn"</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">readKey</span><span class="p">)</span>
+
+<span class="c"># Prepare the listener</span>
+<span class="k">def</span> <span class="nf">printValue</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+  <span class="k">print</span><span class="p">(</span><span class="s">"duration : "</span><span class="o">+</span><span class="n">value</span><span class="p">)</span>
+
+<span class="n">board</span><span class="o">.</span><span class="n">addListener</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">readKey</span><span class="p">,</span> <span class="n">updateFunction</span><span class="o">=</span><span class="n">printValue</span><span class="p">,</span> <span class="n">isInfinite</span><span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+
+<span class="c"># Launch the thread every 1s</span>
+<span class="n">readThread</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+
+<span class="o">&gt;&gt;</span> <span class="n">duration</span> <span class="p">:</span> <span class="mi">1455</span>
+<span class="o">&gt;&gt;</span> <span class="n">duration</span> <span class="p">:</span> <span class="mi">3455</span>
+<span class="o">&gt;&gt;</span> <span class="n">duration</span> <span class="p">:</span> <span class="mi">3234</span>
+<span class="o">...</span>
+
+<span class="n">readThread</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+
+</code></pre>
+
+<p>Some instructions&rsquo;ve to be call consecutively, or to be repeat at regular intervals.
+A BoardThread is a block of instructions load on the board, that will be execute consecutively
+and/or at regular intervals</p>
+
+<h3 id="board-newthread">Board.newThread()</h3>
+
+<p>Init a new thread on the board</p>
+
+<h3 id="boardthread-add-name-args">boardThread.add(name, *args)</h3>
+
+<p>Add an instruction to the boardThread</p>
+
+<ul>
+<li><strong>name</strong> : the instruction&rsquo;s name</li>
+<li><strong>args</strong> : the instruction&rsquo;s arguments</li>
+</ul>
+
+<h3 id="boardthread-start-period-0">boardThread.start(period=0)</h3>
+
+<p>Start the thread</p>
+
+<ul>
+<li><strong>period</strong> : the time period (ms) between each thread executions, if is not set or equal to 0 the thread&rsquo;ll be
+execute only once.</li>
+</ul>
+
+<h3 id="boardthread-stop">boardThread.stop()</h3>
+
+<p>Stop the thread</p>
 
           <h1 id="how-to-contribute">How to contribute ?</h1>
 
