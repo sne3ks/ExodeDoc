@@ -160,7 +160,6 @@ readThread.start(1000)
 ...
 
 readThread.stop()
-
 ```
 
 Some instructions've to be call consecutively, or to be repeat at regular intervals.
