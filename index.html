@@ -144,11 +144,11 @@ Write Python script and take control on your board using a serial IO.</p>
 takes advantages from the clear and light Python&rsquo;s syntax.</p>
 
 <p>Once your Arduino connected to your device (computer, Rasberry Pi, smartphone ..)
-using a serial IO (usb/bluetooth), you&#39;r now allowed to have remote interactions
+using a serial IO (usb/bluetooth), you&rsquo;re now allowed to have remote interactions
 with your board.</p>
 
-<p>You microcontroller become a simple slave, let your computer process the more
-complexe tasks. You may add artificial intelligence algorithm in your projects&hellip;</p>
+<p>You microcontroller become a simple slave, let your computer process the most
+complex tasks. You may add artificial intelligence algorithm in your projects&hellip;</p>
 
 <h3 id="powerfull-tools">Powerfull tools</h3>
 
@@ -174,9 +174,9 @@ complexe tasks. You may add artificial intelligence algorithm in your projects&h
 manipulate them with Python.</p>
 
 <p>Exode use event-driven programming to manage the interactions between the differents
-components plugged on your board, or your computer it-self.</p>
+components plugged on your board, or your computer.</p>
 
-<p>Furthermore, the Exode&rsquo;s kernel is based on a asynchronous processes,
+<p>Furthermore, the Exode&rsquo;s kernel is based on an asynchronous processes,
 greatly simplifying your project !!</p>
 
           <h1 id="get-started">Get Started</h1>
@@ -217,11 +217,11 @@ you&rsquo;ll have to compile a source code on your board.</p>
 &gt;&gt;
 </code></pre>
 
-<p>If you use OSx or Linux, you&rsquo;ve to know that a device connected to your computer
-is interpreted like a file for your OS. And it&rsquo;s trought this &ldquo;file&rdquo; that Exode communicate
+<p>If you use Osx or Linux, you&rsquo;ve to know that a device connected to your computer
+is interpreted like a file for your OS. And it&rsquo;s through this &ldquo;file&rdquo; that Exode communicates
 with the Arduino board. You can find this file into this repertory <code class="prettyprint">\dev</code></p>
 
-<p>But you&rsquo;re really lucky today because Exode can find the path of your board it-self like
+<p>But you&rsquo;re really lucky today because Exode can find the path of your board like
 a good guy, <em>notice that you&rsquo;ve to install Exode on your board before</em>.
 <strong>BOARD.search()</strong> return all board connected with Exode installed on.</p>
 
@@ -267,7 +267,7 @@ Object is inheriting from <strong>obj</strong>. That&rsquo;s why all Exode&rsquo
 
 <span class="n">board</span><span class="o">-</span><span class="mi">1</span><span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/path/to/your/board-1'</span><span class="p">)</span>
 
-<span class="c">#There's two board connected, we've to specified on witch board setup</span>
+<span class="c">#There's two board connected, we've to specify on which board setup</span>
 <span class="c">#our obj</span>
 <span class="n">obj2</span><span class="o">=</span><span class="n">Led</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span><span class="o">.</span><span class="n">on</span><span class="p">(</span><span class="n">board</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 
@@ -310,8 +310,8 @@ Else, if there&rsquo;s more than one board you&rsquo;ve to call obj.on()</em></p
 
 </code></pre>
 
-<p>Event manager let you add/delete callback functions associate to the object&rsquo;s events.
-Theses functions&rsquo;ll be call when their associated event is dispatched.  </p>
+<p>Event manager lets you add/delete callback functions associated with the object&rsquo;s events.
+Theses functions will be call when their associated event is dispatched.  </p>
 
 <h3 id="obj-attachevent-event-callback-args">obj.attachEvent(event, callback, *args)</h3>
 
@@ -340,6 +340,72 @@ Theses functions&rsquo;ll be call when their associated event is dispatched.  </
 <span class="c">#in log file</span>
 <span class="o">&gt;&gt;</span> <span class="s">"2016-04-06 19:13:47,408 - Exode.Core - DEBUG -"</span><span class="o">..</span>
 <span class="o">&gt;&gt;</span> <span class="o">..</span> <span class="s">" OBJC - Board-0.digPin(13) hello world !"</span>
+
+</code></pre>
+
+<p>Object can write a message in the log file</p>
+
+<h3 id="obj-log-msg">obj.log(msg)</h3>
+
+<p>Sends a message in the log file</p>
+
+<ul>
+<li><strong>msg</strong> : a string
+def switcheCallback():
+print(&ldquo;Hey Hey !&rdquo;)</li>
+</ul>
+
+<p>pin.attachEvent(&ldquo;switch&rdquo;,switcheCallback)
+pin.listen()</p>
+
+<blockquote>
+<blockquote>
+<p>0
+0
+1 #lvl switched here
+&ldquo;Hey Hey !&rdquo;
+1
+0
+&ldquo;Hey Hey !&rdquo;
+&hellip;</p>
+</blockquote>
+</blockquote>
+
+<p>pin.detachEvent(&ldquo;switch&rdquo;)</p>
+
+<blockquote>
+<blockquote>
+<p>0
+1
+0</p>
+</blockquote>
+</blockquote>
+<pre class="highlight plaintext"><code>
+Event manager let you add/delete callback functions associate to the object's events.
+Theses functions'll be call when their associated event is dispatched.  
+
+### obj.attachEvent(event, callback, \*args)
+The callback function with the given args will be executed when the event is dispatched.
+
+* **event** : the event name
+* **callback** : a function
+* **args** : arguments used by the function
+
+### obj.detachEvent(event)
+Delete the callback function associated to the event
+
+* **event** : the event name
+
+## Log system
+```python
+uno = Board('/path/to/your/board')
+
+pin=DigPin(13,'OUTPUT')
+pin.log(" hello world !")
+
+#in log file
+&gt;&gt; "2016-04-06 19:13:47,408 - Exode.Core - DEBUG -"..
+&gt;&gt; .. " OBJC - Board-0.digPin(13) hello world !"
 
 </code></pre>
 
@@ -438,22 +504,22 @@ Theses functions&rsquo;ll be call when their associated event is dispatched.  </
 
 <ul>
 <li><strong>pinNumber</strong> : the number of the pin whose mode you wish to set</li>
-<li><strong>Mode</strong> : the pin&rsquo;s behaviour &lsquo;OUTPUT&rsquo; or &#39;INPUT&rsquo;</li>
+<li><strong>Mode</strong> : the pin&rsquo;s behavior &lsquo;OUTPUT&rsquo; or &#39;INPUT&rsquo;</li>
 <li><strong>analogic</strong> : optional parameter, set <em>True</em> if the pin is a physical analog Pin</li>
 </ul>
 
 <h3 id="mode-mode">mode(Mode)</h3>
 
-<p>Changes your pin&rsquo;s behaviour</p>
+<p>Changes your pin&rsquo;s behavior</p>
 
 <ul>
-<li><strong>Mode</strong> : the pin&rsquo;s behaviour &#39;OUTPUT&rsquo; or &#39;INPUT&rsquo;</li>
+<li><strong>Mode</strong> : the pin&rsquo;s behavior &#39;OUTPUT&rsquo; or &#39;INPUT&rsquo;</li>
 </ul>
 
 <h3 id="write-lvl">write(Lvl)</h3>
 
 <p>Writes a HIGH or a LOW value to a digital pin. <a href="https://www.arduino.cc/en/Reference/DigitalWrite">go here</a> for more
-informations.</p>
+information.</p>
 
 <ul>
 <li><strong>Lvl</strong> : &#39;HIGH&rsquo;,1 or &#39;LOW&rsquo;,0</li>
@@ -589,10 +655,10 @@ informations.</p>
 
 <h3 id="mode-mode">mode(mode)</h3>
 
-<p>Changes your pin&rsquo;s behaviour</p>
+<p>Changes your pin&rsquo;s behavior</p>
 
 <ul>
-<li><strong>mode</strong> : the pin&rsquo;s behaviour &#39;OUTPUT&rsquo; or &#39;INPUT&rsquo;</li>
+<li><strong>mode</strong> : the pin&rsquo;s behavior &#39;OUTPUT&rsquo; or &#39;INPUT&rsquo;</li>
 </ul>
 
 <h3 id="read">read()</h3>
@@ -700,10 +766,10 @@ more informations <a href="https://www.arduino.cc/en/Reference/RobotAnalogRead">
 
 <h3 id="read-period">read(period)</h3>
 
-<p>Read the distance of the nearest object by bouncing soundwaves off of it</p>
+<p>Read the distance of the nearest object by bouncing sound waves off of it</p>
 
 <ul>
-<li><strong>period</strong> : the period between each readings, if is not set (or equal to 0), the HCSR04&rsquo;ll read only one time.</li>
+<li><strong>period</strong> : the period between each reading, if is not set (or equal to 0), the HCSR04&rsquo;ll read only one time.</li>
 </ul>
 
 <h3 id="stopread">stopRead()</h3>
@@ -720,7 +786,7 @@ more informations <a href="https://www.arduino.cc/en/Reference/RobotAnalogRead">
 
 <p>Width (ms) of the last Echo pulse</p>
 
-<p><em>read the datasheet for more informations</em>*</p>
+<p><em>read the datasheet for more information</em>*</p>
 
           <h1 id="motor">Motor</h1>
 
@@ -864,7 +930,7 @@ more informations <a href="https://www.arduino.cc/en/Reference/RobotAnalogRead">
 
 <h3 id="how-exode-send-instructions">How Exode send instructions ?</h3>
 
-<p>Exode send byte arrays to the Arduino Board. Each array represent <strong>an instruction</strong>.
+<p>Exode sends byte arrays to the Arduino Board. Each array represents <strong>an instruction</strong>.
 Byte arrays are constructed on this pattern</p>
 
 <table><thead>
@@ -887,7 +953,7 @@ Byte arrays are constructed on this pattern</p>
 </tr>
 </tbody></table>
 
-<p>When the board receive a byte array, the board will decode and execute it.</p>
+<p>When the board receives a byte array, the board will decode and execute it.</p>
 
 <p>For example, here the byte array to write a &lsquo;HIGH&rsquo; level on the pin 13</p>
 
@@ -926,10 +992,10 @@ Byte arrays are constructed on this pattern</p>
   For the moment, exodeArduinoCore can only send unsigned int coded on 4 bytes with a little endian
 </aside>
 
-<p>Some instructions wait from the board an answer, for example digPin.read().
-Exode works on asynchronous process, that&rsquo;s why the answers don&rsquo;t come in the same
+<p>Some instructions wait from the board an answer, for example, digPin.read().
+Exode works on an asynchronous process, that&rsquo;s why the answers don&rsquo;t come in the same
 order than their request. To identify the request who is associated the incoming
-answer, Exode use a <strong>key system</strong>.</p>
+answer, Exode uses a <strong>key system</strong>.</p>
 
 <p>For example, here the byte array to read the pin 13 level</p>
 
@@ -1136,7 +1202,7 @@ answer, Exode use a <strong>key system</strong>.</p>
 
 </code></pre>
 
-<p>To receive date from the board, Exode use Listener. A Listener listen the incoming data, when a value comes
+<p>To receive date from the board, Exode uses Listener. A Listener listens to the incoming data, when a value comes
 with the excepted key, the listener will call a callback function with the incoming value as argument.</p>
 
 <h3 id="board-addlistener-updatefunction-key-isinfinite-false">Board.addListener(updateFunction, key, isInfinite=False)</h3>
@@ -1194,8 +1260,8 @@ with the excepted key, the listener will call a callback function with the incom
 <span class="n">readThread</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 </code></pre>
 
-<p>Some instructions&rsquo;ve to be call consecutively, or to be repeat at regular intervals.
-A BoardThread is a block of instructions load on the board, that will be execute consecutively
+<p>Some instructions have to be call consecutively or to be repeated at regular intervals.
+A BoardThread is a block of instructions load on the board, that will be executed consecutively
 and/or at regular intervals</p>
 
 <h3 id="board-newthread">Board.newThread()</h3>
@@ -1216,7 +1282,7 @@ and/or at regular intervals</p>
 <p>Start the thread</p>
 
 <ul>
-<li><strong>period</strong> : the time period (ms) between each thread executions, if is not set or equal to 0 the thread&rsquo;ll be
+<li><strong>period</strong> : the time period (ms) between each thread executions, if is not set or equal to 0 the thread will be
 execute only once.</li>
 </ul>
 
@@ -1248,7 +1314,7 @@ new components. You&rsquo;re of course free to improve the core, or add new feat
 <li><p><a aria-label="Fork sne3ks/ExodeDoc on GitHub" data-count-aria-label="# forks on GitHub" data-count-api="/repos/sne3ks/ExodeDoc#forks_count" data-count-href="/sne3ks/ExodeDoc/network" data-icon="octicon-repo-forked" href="https://github.com/sne3ks/ExodeDoc/fork" class="github-button">Fork</a> <strong>ExodeDoc</strong> <em>(this documentation)</em></p></li>
 </ul>
 
-<p><em>Also, I&rsquo;m not an english native speaker, do not hesitate to rectify my mistakes ;) !</em></p>
+<p><em>Also, I&rsquo;m not an English native speaker, do not hesitate to rectify my mistakes ;) !</em></p>
 
 <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
 
