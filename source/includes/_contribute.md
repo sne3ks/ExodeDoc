@@ -22,6 +22,6 @@ new components. You're of course free to improve the core, or add new features.
 
 
 
-*Also, I'm not an english native speaker, do not hesitate to rectify my mistakes ;) !*
+*Also, I'm not an English native speaker, do not hesitate to rectify my mistakes ;) !*
 
 <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>

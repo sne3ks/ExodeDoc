@@ -4,7 +4,7 @@
 
 ### How Exode send instructions ?
 
-Exode send byte arrays to the Arduino Board. Each array represent **an instruction**.
+Exode sends byte arrays to the Arduino Board. Each array represents **an instruction**.
 Byte arrays are constructed on this pattern
 
 Byte position | Description
@@ -13,7 +13,7 @@ Byte position | Description
   **1**   | The instruction's id
   **2 .. n** | The instruction's operands
 
-When the board receive a byte array, the board will decode and execute it.
+When the board receives a byte array, the board will decode and execute it.
 
 For example, here the byte array to write a 'HIGH' level on the pin 13
 
@@ -31,10 +31,10 @@ Byte position | Value |Description
   For the moment, exodeArduinoCore can only send unsigned int coded on 4 bytes with a little endian
 </aside>
 
-Some instructions wait from the board an answer, for example digPin.read().
-Exode works on asynchronous process, that's why the answers don't come in the same
+Some instructions wait from the board an answer, for example, digPin.read().
+Exode works on an asynchronous process, that's why the answers don't come in the same
 order than their request. To identify the request who is associated the incoming
-answer, Exode use a **key system**.
+answer, Exode uses a **key system**.
 
 For example, here the byte array to read the pin 13 level
 
@@ -110,7 +110,7 @@ uno.digitalRead(13, requestKey)
 
 ```
 
-To receive date from the board, Exode use Listener. A Listener listen the incoming data, when a value comes
+To receive date from the board, Exode uses Listener. A Listener listens to the incoming data, when a value comes
 with the excepted key, the listener will call a callback function with the incoming value as argument.
 
 ###Board.addListener(updateFunction, key, isInfinite=False)
@@ -162,8 +162,8 @@ readThread.start(1000)
 readThread.stop()
 ```
 
-Some instructions've to be call consecutively, or to be repeat at regular intervals.
-A BoardThread is a block of instructions load on the board, that will be execute consecutively
+Some instructions have to be call consecutively or to be repeated at regular intervals.
+A BoardThread is a block of instructions load on the board, that will be executed consecutively
 and/or at regular intervals
 
 ###Board.newThread()
@@ -178,7 +178,7 @@ Add an instruction to the boardThread
 ###boardThread.start(period=0)
 Start the thread
 
-* **period** : the time period (ms) between each thread executions, if is not set or equal to 0 the thread'll be
+* **period** : the time period (ms) between each thread executions, if is not set or equal to 0 the thread will be
 execute only once.
 
 ###boardThread.stop()

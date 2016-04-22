@@ -38,9 +38,9 @@ Init a HCR04 sensor.
 * **trig** : the Trig's pin number
 
 ###read(period)
-Read the distance of the nearest object by bouncing soundwaves off of it
+Read the distance of the nearest object by bouncing sound waves off of it
 
-* **period** : the period between each readings, if is not set (or equal to 0), the HCSR04'll read only one time.
+* **period** : the period between each reading, if is not set (or equal to 0), the HCSR04'll read only one time.
 
 ###stopRead()
 Stop the reading from the HCSR04
@@ -53,4 +53,4 @@ The distance of the nearest object (cm) (updated during the last reading)
 ###HCR04.duration
 Width (ms) of the last Echo pulse
 
-*read the datasheet for more informations**
+*read the datasheet for more information**

@@ -22,11 +22,11 @@ Exode was designed to simplify the development of Arduino projects. The library
 takes advantages from the clear and light Python's syntax.
 
 Once your Arduino connected to your device (computer, Rasberry Pi, smartphone ..)
-using a serial IO (usb/bluetooth), you'r now allowed to have remote interactions
+using a serial IO (usb/bluetooth), you're now allowed to have remote interactions
 with your board.
 
-You microcontroller become a simple slave, let your computer process the more
-complexe tasks. You may add artificial intelligence algorithm in your projects...
+You microcontroller become a simple slave, let your computer process the most
+complex tasks. You may add artificial intelligence algorithm in your projects...
 
 ### Powerfull tools
 
@@ -52,7 +52,7 @@ Many of Arduino components are implemented in Exode, that's way you can directly
 manipulate them with Python.
 
 Exode use event-driven programming to manage the interactions between the differents
-components plugged on your board, or your computer it-self.
+components plugged on your board, or your computer.
 
-Furthermore, the Exode's kernel is based on a asynchronous processes,
+Furthermore, the Exode's kernel is based on an asynchronous processes,
 greatly simplifying your project !!

@@ -34,11 +34,11 @@ user$ python3
 >>
 ```
 
-If you use OSx or Linux, you've to know that a device connected to your computer
-is interpreted like a file for your OS. And it's trought this "file" that Exode communicate
+If you use Osx or Linux, you've to know that a device connected to your computer
+is interpreted like a file for your OS. And it's through this "file" that Exode communicates
 with the Arduino board. You can find this file into this repertory ```\dev```
 
-But you're really lucky today because Exode can find the path of your board it-self like
+But you're really lucky today because Exode can find the path of your board like
 a good guy, *notice that you've to install Exode on your board before*.
 **BOARD.search()** return all board connected with Exode installed on.
 

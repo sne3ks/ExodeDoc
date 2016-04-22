@@ -65,17 +65,17 @@ Event | Description
 Setups your pin
 
 * **pinNumber** : the number of the pin whose mode you wish to set
-* **Mode** : the pin's behaviour 'OUTPUT' or 'INPUT'
+* **Mode** : the pin's behavior 'OUTPUT' or 'INPUT'
 * **analogic** : optional parameter, set *True* if the pin is a physical analog Pin
 
 ### mode(Mode)
-Changes your pin's behaviour
+Changes your pin's behavior
 
-* **Mode** : the pin's behaviour 'OUTPUT' or 'INPUT'
+* **Mode** : the pin's behavior 'OUTPUT' or 'INPUT'
 
 ### write(Lvl)
 Writes a HIGH or a LOW value to a digital pin. [go here](https://www.arduino.cc/en/Reference/DigitalWrite) for more
-informations.
+information.
 
 * **Lvl** : 'HIGH',1 or 'LOW',0
 
@@ -177,9 +177,9 @@ Setup the analog pin.
 * **mode** : the pin's behaviour 'OUTPUT' or 'INPUT'
 
 ### mode(mode)
-Changes your pin's behaviour
+Changes your pin's behavior
 
-* **mode** : the pin's behaviour 'OUTPUT' or 'INPUT'
+* **mode** : the pin's behavior 'OUTPUT' or 'INPUT'
 
 ### read()
 Reads the value from the pin, then saves the value into **anaPin.value**.
