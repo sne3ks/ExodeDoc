@@ -124,14 +124,21 @@
 <h3 id="well-what-is-it">Well, What is it ?</h3>
 
 <blockquote>
-<p>Here, a code to blink a led</p>
+<p>Blink two led asynchronously</p>
 </blockquote>
-<pre class="highlight python"><code><span class="kn">from</span> <span class="nn">Exode</span> <span class="kn">import</span> <span class="o">*</span>
+<pre class="highlight python"><code>
+<span class="kn">from</span> <span class="nn">Exode</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="n">uno</span> <span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/dev/tty.HC-06-DevB'</span><span class="p">)</span>
 
-<span class="n">uno</span> <span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/dev/tty.wchusbserial1420'</span><span class="p">)</span>
+<span class="n">led13</span> <span class="o">=</span> <span class="n">Led</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">led14</span> <span class="o">=</span> <span class="n">Led</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span>
 
-<span class="n">led</span> <span class="o">=</span> <span class="n">Led</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
-<span class="n">led</span><span class="o">.</span><span class="n">blink</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+<span class="n">uno</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">led13</span><span class="p">)</span>
+<span class="n">uno</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">led14</span><span class="p">)</span>
+
+<span class="n">led13</span><span class="o">.</span><span class="n">blink</span><span class="p">(</span><span class="mi">250</span><span class="p">)</span>
+<span class="n">led14</span><span class="o">.</span><span class="n">blink</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+
 </code></pre>
 
 <p>Exode is a Python&rsquo;s library for communication between
@@ -152,24 +159,6 @@ complex tasks. You may add artificial intelligence algorithm in your projects&he
 
 <h3 id="powerfull-tools">Powerfull tools</h3>
 
-<blockquote>
-<p>Blink two led asynchronously</p>
-</blockquote>
-<pre class="highlight python"><code>
-<span class="kn">from</span> <span class="nn">Exode</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="n">uno</span> <span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/dev/tty.HC-06-DevB'</span><span class="p">)</span>
-
-<span class="n">led13</span> <span class="o">=</span> <span class="n">Led</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
-<span class="n">led14</span> <span class="o">=</span> <span class="n">Led</span><span class="p">(</span><span class="mi">14</span><span class="p">)</span>
-
-<span class="n">uno</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">led13</span><span class="p">)</span>
-<span class="n">uno</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">led14</span><span class="p">)</span>
-
-<span class="n">led13</span><span class="o">.</span><span class="n">blink</span><span class="p">(</span><span class="mi">250</span><span class="p">)</span>
-<span class="n">led14</span><span class="o">.</span><span class="n">blink</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
-
-</code></pre>
-
 <p>Many of Arduino components are implemented in Exode, that&rsquo;s way you can directly
 manipulate them with Python.</p>
 
@@ -178,6 +167,18 @@ components plugged on your board, or your computer.</p>
 
 <p>Furthermore, the Exode&rsquo;s kernel is based on an asynchronous processes,
 greatly simplifying your project !!</p>
+
+<h3 id="user-interface">User Interface</h3>
+
+<p align="center"><img src="images/showcase.gif" ></p>
+
+<p>Interact with your board easily through UI components :</p>
+
+<ul>
+<li>Visualize data</li>
+<li>Send data</li>
+<li>Event-driven applications</li>
+</ul>
 
           <h1 id="get-started">Get Started</h1>
 
@@ -226,13 +227,16 @@ a good guy, <em>notice that you&rsquo;ve to install Exode on your board before</
 <strong>BOARD.search()</strong> return all board connected with Exode installed on.</p>
 
 <h3 id="your-first-script">Your first script</h3>
-<pre class="highlight python"><code><span class="c">#import</span>
+<pre class="highlight python"><code><span class="c">#1 Import</span>
 <span class="kn">from</span> <span class="nn">Exode</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="c">#connect</span>
+
+<span class="c">#2 Connect</span>
 <span class="n">uno</span> <span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/path/to/your/board'</span><span class="p">)</span>
-<span class="c">#setup</span>
+
+<span class="c">#3 Setup</span>
 <span class="n">led</span> <span class="o">=</span> <span class="n">Led</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
-<span class="c">#here we go</span>
+
+<span class="c">#4 Do something awesome !!</span>
 <span class="n">led</span><span class="o">.</span><span class="n">blink</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
 </code></pre>
 
@@ -243,15 +247,18 @@ a good guy, <em>notice that you&rsquo;ve to install Exode on your board before</
 <li>Now you can <strong>manipulate</strong> them ! <code class="prettyprint">led.blink(500)</code></li>
 </ul>
 
-          <h1 id="object">Object</h1>
+          <h1 id="boardobject">BoardObject</h1>
 
-<p>Each component connected to your board could be viewed as an abstract object.
-Object is inheriting from <strong>obj</strong>. That&rsquo;s why all Exode&rsquo;s objects have theses utilities :</p>
+<p><em>parent : AbstractObj</em></p>
+
+<p>Each component connected to your board are represented by an abstract BoardObject.
+All Exode&rsquo;s objects have theses utilities :</p>
 
 <ul>
 <li>Setup on the board</li>
 <li>Event manager</li>
 <li>Log system</li>
+<li>UI interface</li>
 </ul>
 
 <h2 id="setup-on-the-board">Setup on the board</h2>
@@ -347,77 +354,52 @@ Theses functions will be call when their associated event is dispatched.  </p>
 
 <h3 id="obj-log-msg">obj.log(msg)</h3>
 
-<p>Sends a message in the log file</p>
-
-<ul>
-<li><strong>msg</strong> : a string
-def switcheCallback():
-print(&ldquo;Hey Hey !&rdquo;)</li>
-</ul>
-
-<p>pin.attachEvent(&ldquo;switch&rdquo;,switcheCallback)
-pin.listen()</p>
-
-<blockquote>
-<blockquote>
-<p>0
-0
-1 #lvl switched here
-&ldquo;Hey Hey !&rdquo;
-1
-0
-&ldquo;Hey Hey !&rdquo;
-&hellip;</p>
-</blockquote>
-</blockquote>
-
-<p>pin.detachEvent(&ldquo;switch&rdquo;)</p>
-
-<blockquote>
-<blockquote>
-<p>0
-1
-0</p>
-</blockquote>
-</blockquote>
-<pre class="highlight plaintext"><code>
-Event manager let you add/delete callback functions associate to the object's events.
-Theses functions'll be call when their associated event is dispatched.  
-
-### obj.attachEvent(event, callback, \*args)
-The callback function with the given args will be executed when the event is dispatched.
-
-* **event** : the event name
-* **callback** : a function
-* **args** : arguments used by the function
-
-### obj.detachEvent(event)
-Delete the callback function associated to the event
-
-* **event** : the event name
-
-## Log system
-```python
-uno = Board('/path/to/your/board')
-
-pin=DigPin(13,'OUTPUT')
-pin.log(" hello world !")
-
-#in log file
-&gt;&gt; "2016-04-06 19:13:47,408 - Exode.Core - DEBUG -"..
-&gt;&gt; .. " OBJC - Board-0.digPin(13) hello world !"
-
-</code></pre>
-
-<p>Object can write a message in the log file</p>
-
-<h3 id="obj-log-msg">obj.log(msg)</h3>
-
-<p>Sends a message in the log file</p>
+<p>write a message in the log file</p>
 
 <ul>
 <li><strong>msg</strong> : a string</li>
 </ul>
+
+<h2 id="ui-interaction">UI interaction</h2>
+
+<p>Board object can interact with UI component</p>
+
+<h3 id="obj-setcolor-color">obj.setColor(color)</h3>
+
+<p>Change the ui object color</p>
+
+<ul>
+<li><strong>color</strong> : an array of 4 numbers from 0 to 1 <em>(e.g. [0,1,0.3, 1] [r,g,b, a])</em></li>
+</ul>
+
+<h3 id="obj-getvalue-name">obj.getValue(name)</h3>
+
+<p>Return a value</p>
+
+<ul>
+<li><strong>name</strong> : the value&rsquo;s name</li>
+</ul>
+
+<h3 id="obj-setvalue-value-name">obj.setValue(value, name)</h3>
+
+<p>Update a value</p>
+
+<ul>
+<li><strong>value</strong> : a value</li>
+<li><strong>name</strong> : the name of the value to change</li>
+</ul>
+
+<h3 id="obj-getuixview">obj.getUIXView()</h3>
+
+<p>Return a string representation of the object, styled with markdown</p>
+
+<h1 id="dataobject">DataObject</h1>
+
+<p>Mother class for object generating data. <em>(e.g. analog, E/R)</em></p>
+
+<h3 id="obj-setplot-plot">obj.setPlot(plot)</h3>
+
+<p>set a plot to the obj, data generating will be write on this plot.</p>
 
           <h1 id="pin">Pin</h1>
 
@@ -472,7 +454,7 @@ pin.log(" hello world !")
 
 </code></pre>
 
-<p><em>parent : <a href="#object">Obj</a></em></p>
+<p><em>parent : <a href="#boardobject">BoardObject, DataObject</a></em></p>
 
 <p>A digital pin.</p>
 
@@ -626,7 +608,7 @@ information.</p>
 
 </code></pre>
 
-<p><em>parent : <a href="#object">Obj</a></em></p>
+<p><em>parent : <a href="#boardobject">BoardObject, DataObject</a></em></p>
 
 <p><a href="https://www.arduino.cc/en/Tutorial/AnalogInputPins">An analog pin</a>.</p>
 
@@ -688,7 +670,7 @@ more informations <a href="https://www.arduino.cc/en/Reference/RobotAnalogRead">
 <span class="n">ppm</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
 </code></pre>
 
-<p><em>parent : <a href="#object">Obj</a></em></p>
+<p><em>parent : <a href="#boardObject">BoardObject</a></em></p>
 
 <p>more informations about <strong>ppm signal</strong> <a href="http://skymixer.net/electronics/84-rc-receivers/78-rc-ppm-signal">here</a></p>
 
@@ -716,6 +698,8 @@ more informations <a href="https://www.arduino.cc/en/Reference/RobotAnalogRead">
           <h1 id="sensor">Sensor</h1>
 
 <h2 id="ultrasonic-sensor-hcsr04">Ultrasonic sensor HCSR04</h2>
+
+<p><em>parent: <a href="#boardobject">BoardObject</a>, <a href="#dataobject">DataObject</a></em></p>
 <pre class="highlight python"><code><span class="n">board</span><span class="o">=</span><span class="n">Board</span><span class="p">(</span><span class="s">'/path/to/your/board'</span><span class="p">)</span>
 
 <span class="n">sensor</span><span class="o">=</span> <span class="n">HCSR04</span><span class="p">(</span><span class="n">echo</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">trig</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
@@ -878,6 +862,8 @@ more informations <a href="https://www.arduino.cc/en/Reference/RobotAnalogRead">
 
 <h3 id="l298n_motor-dc-in1-in2-speed-50">L298N_MOTOR(DC, IN1, IN2, speed=50)</h3>
 
+<p>*parent : <a href="#boardobject">BoardObject</a></p>
+
 <p>Setup a motor on the L298N</p>
 
 <ul>
@@ -924,6 +910,164 @@ more informations <a href="https://www.arduino.cc/en/Reference/RobotAnalogRead">
 <p>Stop the motor</p>
 
           
+          <h1 id="ui-component">UI Component</h1>
+
+<p>Exode&rsquo;s User Interface use the <a href="https://kivy.org">Kivy</a> library.</p>
+
+<h2 id="the-app-philosophy">The APP Philosophy</h2>
+
+<p align="center"><img src="images/APP.png" ></p>
+
+<p>The APP is composed of two major components the <strong>STACK</strong> (top) and the <strong>DEBUGGER</strong> (bottom).</p>
+
+<h3 id="stack">STACK</h3>
+
+<p>As you plug component on your Arduino Board, in the same way plug UI component
+on the APP.STACK. easy, it isn&rsquo;t ?</p>
+
+<h3 id="debugger">DEBUGGER</h3>
+
+<p>You Keep control on your code with this tool :</p>
+
+<ul>
+<li>View in real time log messages from your script. (Furthermore with you can filter the different log messages level)</li>
+<li>Write and execute little python command</li>
+</ul>
+
+<h3 id="easy-fast-and-intuitive">Easy, Fast and Intuitive</h3>
+
+<blockquote>
+<p>main.py</p>
+</blockquote>
+<pre class="highlight python"><code><span class="c">#1 Import</span>
+<span class="kn">from</span> <span class="nn">Exode</span>     <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">Exode.UI</span>  <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c">#2 Compile</span>
+<span class="n">APP</span><span class="o">.</span><span class="nb">compile</span><span class="p">(</span><span class="s">'ui_examples/viewerBox.py'</span><span class="p">,</span> <span class="s">'&lt;file&gt;'</span><span class="p">)</span>
+
+<span class="c">#3 Run</span>
+<span class="n">APP</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+</code></pre>
+
+<blockquote>
+<p>ui_examples/viewerBox.py</p>
+</blockquote>
+<pre class="highlight python"><code><span class="c"># Hardware object</span>
+<span class="n">uno</span><span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/dev/cu.wchusbserial1420'</span><span class="p">)</span>
+<span class="n">servo</span><span class="o">=</span> <span class="n">Servo</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">"servo13"</span><span class="p">)</span>
+
+<span class="c"># Ui components</span>
+<span class="n">servoViewer</span><span class="o">=</span> <span class="n">ExdViewerBox</span><span class="p">(</span><span class="n">target</span><span class="o">=</span> <span class="n">servo</span><span class="p">)</span>
+<span class="n">APP</span><span class="o">.</span><span class="n">STACK</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">servoViewer</span><span class="p">)</span>
+</code></pre>
+
+<p>We want Exode to be simple to use, maybe you never really code User Interface with
+python in the past, don&rsquo;t matter !</p>
+
+<p>Look at the source code to build the window showed above, in few steps the APP is ready to use :</p>
+
+<ul>
+<li>import Exode UI components</li>
+<li>Compile a python script inside the APP, that way you will still be able to interact with your variables inside the DEBUGGER</li>
+<li>Launch the APP</li>
+</ul>
+
+<h2 id="exdcontrolerbox">ExdControlerBox</h2>
+
+<p>A Controler Box is a UI component to interact with an AbstractObject a <a href="#boardobject">BoardObject</a>, or a callback function.</p>
+
+<p><strong>ExdControlerBox(target, valueName=None, size=&ldquo;md&rdquo;)</strong></p>
+
+<p>The constructor</p>
+
+<ul>
+<li><strong>target</strong>: could de be a callback function, an AbstractObject or a BoardObject</li>
+<li><strong>valueName</strong>: the name of the target value</li>
+<li><strong>size</strong>: the component&rsquo;s size inside the STACK, could be sm/md/lg/xl or a tuple (x,y) representing the size hint.</li>
+</ul>
+
+<h2 id="exdviewerbox">ExdViewerBox</h2>
+<pre class="highlight python"><code><span class="n">uno</span><span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/dev/cu.wchusbserial1420'</span><span class="p">)</span>
+
+<span class="c">## Init a boardobject and change its main color</span>
+<span class="n">servo</span><span class="o">=</span> <span class="n">Servo</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">"servo13"</span><span class="p">)</span>
+<span class="n">servo</span><span class="o">.</span><span class="n">setColor</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">])</span>
+
+<span class="c">## Init a xl viewer</span>
+<span class="n">servoViewer</span><span class="o">=</span> <span class="n">ExdViewerBox</span><span class="p">(</span><span class="n">target</span><span class="o">=</span> <span class="n">servo</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="s">"xl"</span><span class="p">)</span>
+<span class="n">APP</span><span class="o">.</span><span class="n">STACK</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">servoViewer</span><span class="p">)</span>
+
+</code></pre>
+
+<p align="center"><img src="images/viewerBox.png" ></p>
+
+<p>Show informations about an object. Theses informations come from obj.getUIXView()</p>
+
+<h2 id="exdtextinputbox">ExdTextInputBox</h2>
+<pre class="highlight python"><code><span class="n">uno</span><span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/dev/cu.wchusbserial1420'</span><span class="p">)</span>
+
+<span class="n">led</span><span class="o">=</span> <span class="n">Led</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">led</span><span class="o">.</span><span class="n">setColor</span><span class="p">([</span><span class="mf">0.84</span><span class="p">,</span> <span class="mf">0.34</span><span class="p">,</span> <span class="mf">0.67</span><span class="p">])</span>
+
+<span class="n">ledController</span><span class="o">=</span> <span class="n">ExdTextInputBox</span><span class="p">(</span><span class="n">target</span><span class="o">=</span> <span class="n">led</span><span class="p">,</span> <span class="n">valueName</span><span class="o">=</span><span class="s">"period"</span><span class="p">,</span>
+                               <span class="n">size</span><span class="o">=</span><span class="s">"sm"</span><span class="p">)</span>
+<span class="n">APP</span><span class="o">.</span><span class="n">STACK</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">ledController</span><span class="p">)</span>
+</code></pre>
+
+<p align="center"><img src="images/inputBox.png" ></p>
+
+<p>Update in real time a value of an object. For example here, when you change the value
+inside the textarea, the led blink&rsquo;s period will be update.</p>
+
+<h2 id="exdsliderbox">ExdSliderBox</h2>
+<pre class="highlight python"><code><span class="n">uno</span><span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/dev/cu.wchusbserial1420'</span><span class="p">)</span>
+
+<span class="n">led</span><span class="o">=</span> <span class="n">Led</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">ledController</span><span class="o">=</span> <span class="n">ExdSliderBox</span><span class="p">(</span><span class="n">minv</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">maxv</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+                            <span class="n">target</span><span class="o">=</span> <span class="n">led</span><span class="p">,</span> <span class="n">valueName</span><span class="o">=</span><span class="s">"period"</span><span class="p">)</span>
+
+<span class="n">APP</span><span class="o">.</span><span class="n">STACK</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">ledController</span><span class="p">)</span>
+
+</code></pre>
+
+<p align="center"><img src="images/sliderBox.png" ></p>
+
+<p>Update in real time a value of an object through the Slider.</p>
+
+<p><strong>ExdControlerBox(minv, maxv, target, size=&ldquo;sm&rdquo;, valueName=None, isfloat=False)</strong></p>
+
+<ul>
+<li><strong>minv</strong> : min value for the slider</li>
+<li><strong>maxv</strong> : max value for the slider</li>
+<li><strong>isfloat</strong> : Boolean, false if you want integer value, true else.</li>
+</ul>
+
+<h2 id="exdradiobox-and-exdswitchbox">ExdRadioBox and ExdSwitchBox</h2>
+<pre class="highlight python"><code><span class="n">uno</span><span class="o">=</span> <span class="n">Board</span><span class="p">(</span><span class="s">'/dev/cu.wchusbserial1420'</span><span class="p">)</span>
+
+<span class="n">led</span><span class="o">=</span> <span class="n">Led</span><span class="p">(</span><span class="mi">13</span><span class="p">)</span>
+
+<span class="n">switchBox</span><span class="o">=</span> <span class="n">ExdSwitchBox</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">led</span><span class="p">,</span> <span class="n">valueName</span><span class="o">=</span><span class="s">"lvl"</span><span class="p">)</span>
+<span class="n">radioBox</span> <span class="o">=</span> <span class="n">ExdRadioBox</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">led</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">"Led13"</span><span class="p">,</span> <span class="n">valueName</span><span class="o">=</span><span class="s">"lvl"</span><span class="p">)</span>
+
+<span class="n">APP</span><span class="o">.</span><span class="n">STACK</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">switchBox</span><span class="p">)</span>
+<span class="n">APP</span><span class="o">.</span><span class="n">STACK</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">radioBox</span><span class="p">)</span>
+
+
+</code></pre>
+
+<p align="center"><img src="images/binaryBox.gif" ></p>
+
+<p>Simple binary controller.</p>
+
+<p><strong>ExdRadioBox(target, title, valueName=None)</strong></p>
+
+<ul>
+<li><strong>title</strong> : the radio title</li>
+</ul>
+
           <h1 id="advanced-usage">Advanced usage</h1>
 
 <h2 id="how-it-works">How it works ?</h2>
