@@ -49,7 +49,7 @@
   digPinA0.write("HIGH")
 
 ```
-*parent : [Obj](#object)*
+*parent : [BoardObject, DataObject](#boardobject)*
 
 A digital pin.
 
@@ -160,7 +160,7 @@ analog.listen()
 ...
 
 ```
-*parent : [Obj](#object)*
+*parent : [BoardObject, DataObject](#boardobject)*
 
 [An analog pin](https://www.arduino.cc/en/Tutorial/AnalogInputPins).
 
@@ -204,7 +204,7 @@ ppm.write(1500)
 delay(1000)
 ppm.stop()
 ```
-*parent : [Obj](#object)*
+*parent : [BoardObject](#boardObject)*
 
 more informations about **ppm signal** [here](http://skymixer.net/electronics/84-rc-receivers/78-rc-ppm-signal)
 

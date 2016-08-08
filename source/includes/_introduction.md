@@ -1,17 +1,23 @@
 #Introduction
 
 ### Well, What is it ?
-> Here, a code to blink a led
+> Blink two led asynchronously
 
 ```python
+
 from Exode import *
+uno = Board('/dev/tty.HC-06-DevB')
 
-uno = Board('/dev/tty.wchusbserial1420')
+led13 = Led(13)
+led14 = Led(14)
 
-led = Led(13)
-led.blink(500)
+uno.add(led13)
+uno.add(led14)
+
+led13.blink(250)
+led14.blink(500)
+
 ```
-
 Exode is a Python's library for communication between
 Arduino microcontroller boards and a connected computer.
 Write Python script and take control on your board using a serial IO.
@@ -30,23 +36,6 @@ complex tasks. You may add artificial intelligence algorithm in your projects...
 
 ### Powerfull tools
 
-> Blink two led asynchronously
-
-```python
-
-from Exode import *
-uno = Board('/dev/tty.HC-06-DevB')
-
-led13 = Led(13)
-led14 = Led(14)
-
-uno.add(led13)
-uno.add(led14)
-
-led13.blink(250)
-led14.blink(500)
-
-```
 
 Many of Arduino components are implemented in Exode, that's way you can directly
 manipulate them with Python.
@@ -56,3 +45,13 @@ components plugged on your board, or your computer.
 
 Furthermore, the Exode's kernel is based on an asynchronous processes,
 greatly simplifying your project !!
+
+### User Interface
+
+<p align="center"><img src="images/showcase.gif" ></p>
+
+Interact with your board easily through UI components :
+
+* Visualize data
+* Send data
+* Event-driven applications

@@ -44,13 +44,16 @@ a good guy, *notice that you've to install Exode on your board before*.
 
 ### Your first script
 ```python
-#import
+#1 Import
 from Exode import *
-#connect
+
+#2 Connect
 uno = Board('/path/to/your/board')
-#setup
+
+#3 Setup
 led = Led(13)
-#here we go
+
+#4 Do something awesome !!
 led.blink(500)
 ```
 

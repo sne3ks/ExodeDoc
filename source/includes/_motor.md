@@ -74,6 +74,8 @@ motor.run() # Motor run backward power 10%
 <p align="center"><img src="http://www.electromonde.com/image/data/composants2/schema%20ciruit%20lm298.png" ><p>
 
 ### L298N_MOTOR(DC, IN1, IN2, speed=50)
+*parent : [BoardObject](#boardobject)
+
 Setup a motor on the L298N
 
 * **DC** : DC pin number

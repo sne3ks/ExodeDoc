@@ -17,6 +17,7 @@ includes:
   - sensor
   - motor
   - shield
+  - ui
   - advance
   - contribute
   - changeLog

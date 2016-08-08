@@ -1,12 +1,13 @@
-# Object
+# BoardObject
+*parent : AbstractObj*
 
-
-Each component connected to your board could be viewed as an abstract object.
-Object is inheriting from **obj**. That's why all Exode's objects have theses utilities :
+Each component connected to your board are represented by an abstract BoardObject.
+All Exode's objects have theses utilities :
 
 * Setup on the board
 * Event manager
 * Log system
+* UI interface
 
 ## Setup on the board
 
@@ -93,62 +94,35 @@ pin.log(" hello world !")
 Object can write a message in the log file
 
 ### obj.log(msg)
-Sends a message in the log file
+write a message in the log file
 
 * **msg** : a string
-def switcheCallback():
-  print("Hey Hey !")
 
-pin.attachEvent("switch",switcheCallback)
-pin.listen()
+## UI interaction
+Board object can interact with UI component
 
->>0
->>0
->>1 #lvl switched here
->>"Hey Hey !"
->>1
->>0
->>"Hey Hey !"
-...
+### obj.setColor(color)
+Change the ui object color
 
-pin.detachEvent("switch")
+* **color** : an array of 4 numbers from 0 to 1 *(e.g. [0,1,0.3, 1] [r,g,b, a])*
 
->>0
->>1
->>0
+### obj.getValue(name)
+Return a value
 
-```
+* **name** : the value's name
 
-Event manager let you add/delete callback functions associate to the object's events.
-Theses functions'll be call when their associated event is dispatched.  
+### obj.setValue(value, name)
+Update a value
 
-### obj.attachEvent(event, callback, \*args)
-The callback function with the given args will be executed when the event is dispatched.
+* **value** : a value
+* **name** : the name of the value to change
 
-* **event** : the event name
-* **callback** : a function
-* **args** : arguments used by the function
+### obj.getUIXView()
+Return a string representation of the object, styled with markdown
 
-### obj.detachEvent(event)
-Delete the callback function associated to the event
+# DataObject
 
-* **event** : the event name
+Mother class for object generating data. *(e.g. analog, E/R)*
 
-## Log system
-```python
-uno = Board('/path/to/your/board')
-
-pin=DigPin(13,'OUTPUT')
-pin.log(" hello world !")
-
-#in log file
->> "2016-04-06 19:13:47,408 - Exode.Core - DEBUG -"..
->> .. " OBJC - Board-0.digPin(13) hello world !"
-
-```
-Object can write a message in the log file
-
-### obj.log(msg)
-Sends a message in the log file
-
-* **msg** : a string
+### obj.setPlot(plot)
+set a plot to the obj, data generating will be write on this plot.

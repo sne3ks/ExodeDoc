@@ -1,6 +1,8 @@
 #Sensor
 
 ## Ultrasonic sensor HCSR04
+*parent: [BoardObject](#boardobject), [DataObject](#dataobject)*
+
 ```python
 board=Board('/path/to/your/board')
 
